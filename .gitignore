@@ -1,0 +1,131 @@
+# ======================================================
+# TrustLedger - .gitignore
+# ======================================================
+
+##############################
+# Python
+##############################
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+##############################
+# Virtual Environments
+##############################
+venv/
+.venv/
+env/
+ENV/
+
+backend/venv/
+backend/.venv/
+
+frontend/venv/
+frontend/.venv/
+
+##############################
+# Environment Variables
+##############################
+.env
+.env.*
+!.env.example
+
+##############################
+# Python Tooling
+##############################
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+##############################
+# Jupyter
+##############################
+.ipynb_checkpoints/
+
+##############################
+# VS Code
+##############################
+.vscode/
+
+##############################
+# IntelliJ / PyCharm
+##############################
+.idea/
+
+##############################
+# Logs
+##############################
+*.log
+
+##############################
+# SQLite
+##############################
+*.sqlite3
+
+##############################
+# Node / Next.js
+##############################
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+##############################
+# OS Files
+##############################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+##############################
+# Docker
+##############################
+docker-data/
+
+##############################
+# Alembic
+##############################
+alembic/versions/*.pyc
+
+##############################
+# Model Files
+##############################
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.joblib
+*.pickle
+*.pkl
+
+##############################
+# Generated Data
+##############################
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+##############################
+# Uploads
+##############################
+uploads/
+
+##############################
+# Temporary Files
+##############################
+*.tmp
+*.temp
