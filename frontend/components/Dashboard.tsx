@@ -35,6 +35,9 @@ type DashboardData = {
     subject: string;
     value: number;
   }[];
+
+  positives: string[];
+  concern: string;
 };
 
 const defaultData: DashboardData = {
@@ -43,14 +46,23 @@ const defaultData: DashboardData = {
   confidence: 93,
   risk: "Low Risk",
   status: "Credit Ready",
+
   radar: [
-  { subject: "GST", value: 96 },
-  { subject: "UPI", value: 91 },
-  { subject: "AA", value: 88 },
-  { subject: "EPFO", value: 94 },
-  { subject: "Growth", value: 92 },
-  { subject: "Liquidity", value: 84 },
+    { subject: "GST", value: 96 },
+    { subject: "UPI", value: 91 },
+    { subject: "AA", value: 88 },
+    { subject: "EPFO", value: 94 },
+    { subject: "Growth", value: 92 },
+    { subject: "Liquidity", value: 84 },
   ],
+
+  positives: [
+    "Excellent GST compliance",
+    "Strong digital transactions",
+    "Healthy cash flow",
+  ],
+
+  concern: "Minor liquidity fluctuation",
 };
 
 export default function Dashboard() {
@@ -294,7 +306,75 @@ export default function Dashboard() {
               </CardTitle>
 
             </CardHeader>
+        <Card className="bg-slate-900 border-slate-700 text-white shadow-xl">
 
+        <CardHeader>
+
+        <CardTitle>
+        AI Decision Summary
+        </CardTitle>
+
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+
+        <div>
+
+        <p className="text-slate-400">
+        Decision
+        </p>
+
+        <h2 className="text-2xl font-bold text-green-400">
+        {dashboard.status}
+        </h2>
+
+        </div>
+
+        <div>
+
+        <p className="text-slate-400">
+        AI Confidence
+        </p>
+
+        <h2 className="text-xl font-bold">
+        {dashboard.confidence}%
+        </h2>
+
+        </div>
+
+        <div>
+
+        <p className="text-slate-400 mb-2">
+        Key Positive Factors
+        </p>
+
+        <ul className="space-y-2">
+
+        {dashboard.positives.map((item: string) => (
+        <li key={item}>
+        ✓ {item}
+        </li>
+        ))}
+
+        </ul>
+
+        </div>
+
+        <div>
+
+        <p className="text-slate-400">
+        Primary Concern
+        </p>
+
+        <p className="text-orange-400">
+        {dashboard.concern}
+        </p>
+
+        </div>
+
+        </CardContent>
+
+        </Card>
             <CardContent className="space-y-5">
 
               <div className="flex gap-3">
