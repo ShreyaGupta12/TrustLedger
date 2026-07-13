@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -23,16 +25,49 @@ import {
   Radar,
 } from "recharts";
 
-const scoreData = [
+type DashboardData = {
+  trust_score: number;
+  loan_amount: string;
+  confidence: number;
+  risk: string;
+  status: string;
+  radar: {
+    subject: string;
+    value: number;
+  }[];
+};
+
+const defaultData: DashboardData = {
+  trust_score: 89,
+  loan_amount: "15L",
+  confidence: 93,
+  risk: "Low Risk",
+  status: "Credit Ready",
+  radar: [
   { subject: "GST", value: 96 },
   { subject: "UPI", value: 91 },
   { subject: "AA", value: 88 },
   { subject: "EPFO", value: 94 },
   { subject: "Growth", value: 92 },
   { subject: "Liquidity", value: 84 },
-];
+  ],
+};
 
 export default function Dashboard() {
+  const [data, setData] = useState<DashboardData | null>(null);
+
+  useEffect(() => {
+    const api =
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://trustledger-z47p.onrender.com";
+
+    fetch(`${api}/dashboard/`)
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error(err));
+  }, []);
+
+  const dashboard = data ?? defaultData;
   return (
     <main className="min-h-screen bg-slate-950 text-white p-8">
 
@@ -51,7 +86,7 @@ export default function Dashboard() {
           </div>
 
           <Badge className="bg-green-600 text-white text-base px-4 py-2">
-            Low Risk
+            {dashboard.risk}
           </Badge>
 
         </div>
@@ -65,7 +100,7 @@ export default function Dashboard() {
 
             <CardContent>
               <h2 className="text-6xl font-bold text-cyan-400">
-                89
+                {dashboard.trust_score}
               </h2>
 
               <p className="text-slate-400 mt-2">
@@ -86,7 +121,7 @@ export default function Dashboard() {
                 <IndianRupee />
 
                 <h2 className="text-3xl font-bold">
-                  15L
+                  {dashboard.loan_amount}
                 </h2>
 
               </div>
@@ -106,7 +141,7 @@ export default function Dashboard() {
             <CardContent>
 
               <h2 className="text-5xl font-bold text-green-400">
-                93%
+                {dashboard.confidence}%
               </h2>
 
               <p className="text-slate-400 mt-2">
@@ -127,7 +162,7 @@ export default function Dashboard() {
 
                 <ShieldCheck className="text-green-400" />
 
-                <span className="text-slate-200">Credit Ready</span>
+                <span className="text-slate-200"> {dashboard.status}</span>
 
               </div>
 
@@ -152,7 +187,7 @@ export default function Dashboard() {
 
               <ResponsiveContainer width="100%" height="100%">
 
-                <RadarChart data={scoreData}>
+                <RadarChart data={dashboard.radar}>
 
                   <PolarGrid />
 
